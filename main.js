@@ -1,27 +1,28 @@
+const hDeg = 30;
+const mDeg = 6.0;
+const sDeg = 6.0;
+const hmDeg = 1 / 4;
 const hourHand = document.querySelector('.hour');
 const minuteHand = document.querySelector('.minute');
-const secondHand = document.getElementsByClassName('second')[0];
-const sdeg = 6;
-const mdeg = 6;
-const hdeg = 30;
-const hmdeg = 45 / 60;
+const secondHand = document.querySelector('.second');
 
 function Tick() {
   const d = new Date();
-  let seconds = d.getSeconds();
   let hours = d.getHours();
   let minutes = d.getMinutes();
-  let rs = (seconds * mdeg) + 90;
-  let rh = (hours * hdeg) + 90;
-  let rm = (minutes * 6) + hmdeg + 90;
+  let seconds = d.getSeconds();
+  let rSh = (seconds * sDeg) + 90;
+  let rMh = (minutes * mDeg) + 90;
+  let rHh = (hours * hDeg) + (hmDeg * minutes) + 90;
 
   if (hours > 12) {
     hours -= 12;
   }
-
-  secondHand.style.transform = `rotate(${rs}deg)`;
-  minuteHand.style.transform = `rotate(${rm}deg)`;
-  hourHand.style.transform = `rotate(${rh}deg)`;
+  
+  hourHand.style.transform = `rotate(${rHh}deg)`;
+  minuteHand.style.transform = `rotate(${rMh}deg)`;
+  secondHand.style.transform = `rotate(${rSh}deg)`;
+  
 }
 
 setInterval(Tick, 1000);
